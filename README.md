@@ -1,11 +1,15 @@
 # 事前準備
 
 ```
-git clone git clone https://github.com/Kimita/react-java-develop-env.git
+git clone git clone git@github.com:clap-and-whistle/spring-boot-demo.git
+cd spring-boot-demo
+git checkout dev
+cd ..
 cp ./backend/.env.example ./backend/.env
+echo "OWNER_USER_ID=`id -u`" >> ./backend/.env
 ```
 
-# 実行
+# Dockerイメージのビルド実行＆appコンテナへログイン
 
 ```
 make init
