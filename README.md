@@ -1,12 +1,14 @@
 # 事前準備
 
 ```
-git clone git clone git@github.com:clap-and-whistle/spring-boot-demo.git
+mkdir ./backend/src
+cd ./backend/src
+git clone git@github.com:clap-and-whistle/spring-boot-demo.git
 cd spring-boot-demo
 git checkout dev
-cd ..
-cp ./backend/.env.example ./backend/.env
-echo "OWNER_USER_ID=`id -u`" >> ./backend/.env
+cd ../../..
+cp ./.env.example ./.env
+echo "OWNER_USER_ID=`id -u`" >> ./.env
 ```
 
 # Dockerイメージのビルド実行＆appコンテナへログイン

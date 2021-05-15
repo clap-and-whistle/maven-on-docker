@@ -3,28 +3,29 @@ volumes:
   db-store:
 services:
   app:
+    env_file: ./.env
     tty: true
     ports:
       - 3000:8080
     volumes:
       - type: bind
-        source: "./spring-boot-demo"
+        source: ./backend/${HOST_BACKEND_SRC_PATH:-src/spring-boot-demo}
         target: "/work/maven"
-    env_file: ./.env
     build:
       context: ./backend
       dockerfile: ./app/Dockerfile
       args:
+        HOST_BACKEND_SRC_PATH: ${HOST_BACKEND_SRC_PATH:-src/spring-boot-demo}
         OWNER_USER_ID: ${OWNER_USER_ID}
         OWNER_GROUP_ID: ${OWNER_USER_ID}
         DB_CONNECTION: mysql
   
   db:
+    env_file: ./.env
     ports:
       - ${DB_EXT_PORT:-3306}:3306
     volumes:
       - db-store:/var/lib/mysql
-    env_file: ./.env
     build:
       context: ./backend
       dockerfile: ./db/mysql/Dockerfile
