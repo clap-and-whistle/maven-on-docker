@@ -36,7 +36,7 @@ log-db:
 log-db-watch:
 	docker-compose logs --follow db
 app:
-	docker-compose exec app bash
+	docker-compose exec --user `id -u` app bash
 db:
 	docker-compose exec db bash
 sql:

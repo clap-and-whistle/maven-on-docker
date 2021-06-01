@@ -3,30 +3,32 @@ volumes:
   db-store:
 services:
   app:
-    build:
-      context: ./backend
-      dockerfile: ./app/Dockerfile
+    env_file: ./.env
     tty: true
     ports:
       - 3000:8080
     volumes:
-      - ./react-java-develop-env:/work/maven
-    environment:
-      - DB_CONNECTION=mysql
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=${DB_NAME:-spring_local}
-      - DB_USERNAME=${DB_USER:-javarista}
-      - DB_PASSWORD=${DB_PASS:-secret}
-  
-  db:
+      - type: bind
+        source: ./backend/${HOST_BACKEND_SRC_PATH:-src/spring-boot-demo}
+        target: "/work/maven"
     build:
       context: ./backend
-      dockerfile: ./db/mysql/Dockerfile
+      dockerfile: ./app/Dockerfile
+      args:
+        HOST_BACKEND_SRC_PATH: ${HOST_BACKEND_SRC_PATH:-src/spring-boot-demo}
+        OWNER_USER_ID: ${OWNER_USER_ID}
+        OWNER_GROUP_ID: ${OWNER_USER_ID}
+        DB_CONNECTION: mysql
+  
+  db:
+    env_file: ./.env
     ports:
       - ${DB_EXT_PORT:-3306}:3306
     volumes:
       - db-store:/var/lib/mysql
+    build:
+      context: ./backend
+      dockerfile: ./db/mysql/Dockerfile
     environment:
       - MYSQL_DATABASE=${DB_NAME:-spring_local}
       - MYSQL_USER=${DB_USER:-javarista}
