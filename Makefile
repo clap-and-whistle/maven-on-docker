@@ -27,16 +27,16 @@ logs:
 	docker-compose logs
 logs-watch:
 	docker-compose logs --follow
-log-app:
-	docker-compose logs app
-log-app-watch:
-	docker-compose logs --follow app
+log-mvn:
+	docker-compose logs mvn
+log-mvn-watch:
+	docker-compose logs --follow mvn
 log-db:
 	docker-compose logs db
 log-db-watch:
 	docker-compose logs --follow db
-app:
-	docker-compose exec --user `id -u` app bash
+mvn:
+	docker-compose exec --user `id -u` mvn bash
 db:
 	docker-compose exec db bash
 sql:

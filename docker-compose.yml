@@ -2,7 +2,7 @@ version: "3"
 volumes:
   db-store:
 services:
-  app:
+  mvn:
     env_file: ./.env
     tty: true
     ports:
@@ -13,7 +13,7 @@ services:
         target: "/work/maven"
     build:
       context: ./backend
-      dockerfile: ./app/Dockerfile
+      dockerfile: ./mvn/Dockerfile
       args:
         HOST_BACKEND_SRC_PATH: ${HOST_BACKEND_SRC_PATH:-src/spring-boot-demo}
         OWNER_USER_ID: ${OWNER_USER_ID}
